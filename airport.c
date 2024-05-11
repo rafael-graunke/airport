@@ -1,6 +1,8 @@
 #include "airport.h"
 #include "list.h"
 
+#include <stdio.h>
+
 Airport create_airport() {
     Airport airport;
     for(int i = 0; i < 26; i++) {
@@ -25,9 +27,9 @@ void insert_plane(Airport *airport, char plane_id[5]) {
 }
 
 void queue_liftoff(Airport *airport, char plane_id[5]) {
-    queue(&airport->fdec, plane_id);
+    // queue(&airport->fdec, plane_id);
 }
 
 void queue_landing(Airport *airport, char plane_id[5]) {
-    queue(&airport->fate, plane_id);
+    // queue(&airport->fate, plane_id);
 }

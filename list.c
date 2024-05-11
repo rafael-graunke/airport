@@ -2,6 +2,8 @@
 #include <string.h>
 #include "list.h"
 
+#include <stdio.h>
+
 List create_list() {
     List list;
     list.head = NULL;
@@ -73,8 +75,9 @@ void prepend(List *list, char plane_id[5]) {
 }
 
 char *dequeue(List *list) {
+    // char plane_id = (char*) malloc(sizeof(char[5]));
     char plane_id[5];
-    strcpy(&plane_id, list->head->plane_id);
+    strcpy(plane_id, list->head->plane_id);
 
     if(list->head == list->tail) {
         free(list->head);
@@ -92,8 +95,9 @@ char *dequeue(List *list) {
 }
 
 char *pop(List *list) {
+    // char plane_id = (char*) malloc(sizeof(char[5]));
     char plane_id[5];
-    strcpy(&plane_id, list->tail->plane_id);
+    strcpy(plane_id, list->tail->plane_id);
 
     if(list->head == list->tail) {
         free(list->head);
@@ -110,6 +114,8 @@ char *pop(List *list) {
 }
 
 void insert(List *list, char plane_id[5]) { 
+
+    printf("AAAAAAAA%s\n", list->head->plane_id);
     if (list->head == NULL) {
         Node *node = create_node(plane_id);
         list->head = node;
