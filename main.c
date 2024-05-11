@@ -25,11 +25,10 @@ void main()
         printf("Digite o número da operação:\n");
         scanf("%d", &choice);
         excecute(&airport, choice);
-        printf("aaaa%s\n",airport.fate.head->plane_id);
     }
 }
 
-void excecute(Airport *airport, int choice)
+void excecute(Airport **airport, int choice)
 {
     char plane_id[5];
     switch (choice)
@@ -37,7 +36,7 @@ void excecute(Airport *airport, int choice)
     case 1:
         printf("Escreva o código do avião a ser inserido:\n");
         scanf("%s", &plane_id);
-        insert_plane(airport, plane_id);
+        register_plane(&(*airport), plane_id);
         break;
     case 2:
         break;
