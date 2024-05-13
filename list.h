@@ -2,14 +2,15 @@
 #ifndef _LIST_H
 #define _LIST_H
 
-
-typedef struct s_node {
+typedef struct s_node
+{
     struct s_node *prev;
     struct s_node *next;
     char plane_id[5];
 } Node;
 
-typedef struct s_list {
+typedef struct s_list
+{
     Node *head;
     Node *tail;
     int size;

@@ -72,6 +72,17 @@ void excecute(Airport **airport, int choice)
         }
         break;
     case 4:
+        printf("Decolagem:\n");
+        char *dec_plane_id = dequeue_liftoff(&(*airport));
+        if (dec_plane_id != NULL)
+        {
+            printf("Avião decolado: %s\n", dec_plane_id);
+        }
+        else
+        {
+            printf("Nenhum avião consta em nossa lista de decolagem.\n");
+        }
+        free(dec_plane_id);
         break;
     case 5:
         printf("Escreva o código do avião a ser autorizado a aterrisar:\n");
@@ -86,13 +97,24 @@ void excecute(Airport **airport, int choice)
         }
         break;
     case 6:
+        printf("Aterrissagem:\n");
+        char *ate_plane_id = dequeue_landing(&(*airport));
+        if (ate_plane_id != NULL)
+        {
+            printf("Avião aterrissado: %s\n", ate_plane_id);
+        }
+        else
+        {
+            printf("Nenhum avião consta em nossa lista de aterrissagem.\n");
+        }
+        free(ate_plane_id);
         break;
     case 7:
         printf("Listar Próximas Decolagens:\n");
         if (aaux->fdec.size > 0)
         {
             print_queue(aaux->fdec.head);
-        }        
+        }
         else
         {
             printf("Lista de decolagens vazia.\n");

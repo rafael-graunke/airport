@@ -16,7 +16,6 @@ List create_list()
 
 bool contains(List *list, char plane_id[5])
 {
-
     Node *curr = list->head;
     if (curr == NULL)
     {
@@ -82,7 +81,7 @@ void prepend(List *list, char plane_id[5])
 
 char *dequeue(List *list)
 {
-    char plane_id[5];
+    char *plane_id = (char*) malloc(sizeof(char[5]));
     strcpy(plane_id, list->head->plane_id);
 
     if (list->head == list->tail)
@@ -90,6 +89,7 @@ char *dequeue(List *list)
         free(list->head);
         list->head = NULL;
         list->tail = NULL;
+        list->size--;
         return plane_id;
     }
     Node *aux = list->head->next;
