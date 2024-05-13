@@ -12,10 +12,9 @@ typedef struct s_airport {
 } Airport;
 
 Airport create_airport();
-void insert_plane(Airport *airport, char plane_id[5]);
-void queue_liftoff(Airport *airport, char plane_id[5]);
-void queue_landing(Airport *airport, char plane_id[5]);
+bool insert_plane(Airport *airport, char plane_id[5]);
+bool queue_liftoff(Airport *airport, char plane_id[5]);
+bool queue_landing(Airport *airport, char plane_id[5]);
 bool check_plane(Airport *airport, char plane_id[5]);
-int register_plane(Airport *airport, char plane_id[5]);
 
 #endif

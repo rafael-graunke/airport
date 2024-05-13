@@ -16,6 +16,7 @@ List create_list()
 
 bool contains(List *list, char plane_id[5])
 {
+
     Node *curr = list->head;
     if (curr == NULL)
     {
@@ -30,12 +31,6 @@ bool contains(List *list, char plane_id[5])
         }
         curr = curr->next;
     }
-
-    if (strcmp(curr->plane_id, plane_id) == 0)
-    {
-        return true;
-    }
-
     return false;
 }
 
@@ -87,7 +82,6 @@ void prepend(List *list, char plane_id[5])
 
 char *dequeue(List *list)
 {
-    // char plane_id = (char*) malloc(sizeof(char[5]));
     char plane_id[5];
     strcpy(plane_id, list->head->plane_id);
 
@@ -109,7 +103,6 @@ char *dequeue(List *list)
 
 char *pop(List *list)
 {
-    // char plane_id = (char*) malloc(sizeof(char[5]));
     char plane_id[5];
     strcpy(plane_id, list->tail->plane_id);
 
@@ -150,7 +143,6 @@ void insert(List *list, char plane_id[5])
         append(list, plane_id);
         return;
     }
-
     Node *node = create_node(plane_id);
     Node *aux = list->head->next;
     for (int i = 0; i < list->size; i++)

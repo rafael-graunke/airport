@@ -31,6 +31,7 @@ void main()
 
 void excecute(Airport **airport, int choice)
 {
+    Airport *aaux = &(*airport);
     char plane_id[5];
     int i;
     switch (choice)
@@ -38,7 +39,7 @@ void excecute(Airport **airport, int choice)
     case 1:
         printf("Escreva o código do avião a ser inserido:\n");
         scanf("%s", &plane_id);
-        if (register_plane(&(*airport), plane_id))
+        if (insert_plane(&(*airport), plane_id))
         {
             printf("Avião registrado com sucesso: %s\n", plane_id);
         }
@@ -51,32 +52,62 @@ void excecute(Airport **airport, int choice)
         printf("Lista de aviões registrados:\n");
         for (i = 0; i < 26; i++)
         {
-            Airport *aaux = &(*airport);
             if (aaux->ldisp[i].size > 0)
             {
-                printf("%d:\n", i);
-                Node *aux = aaux->ldisp[i].head;
-                while (aux->next != NULL)
-                {
-                    printf("%s\n", aux->plane_id);
-                    aux = aux->next;
-                }
-                printf("%s\n", aux->plane_id);
+                printf("%c:\n", i + 'A');
+                print_queue(aaux->ldisp[i].head);
             }
         }
-
         break;
     case 3:
+        printf("Escreva o código do avião a ser autorizado a decolar:\n");
+        scanf("%s", &plane_id);
+        if (queue_liftoff(&(*airport), plane_id))
+        {
+            printf("Avião autorizado: %s\n", plane_id);
+        }
+        else
+        {
+            printf("Avião não consta em nossa lista: %s\n", plane_id);
+        }
         break;
     case 4:
         break;
     case 5:
+        printf("Escreva o código do avião a ser autorizado a aterrisar:\n");
+        scanf("%s", &plane_id);
+        if (queue_landing(&(*airport), plane_id))
+        {
+            printf("Avião autorizado: %s\n", plane_id);
+        }
+        else
+        {
+            printf("Avião não consta em nossa lista: %s\n", plane_id);
+        }
         break;
     case 6:
         break;
     case 7:
+        printf("Listar Próximas Decolagens:\n");
+        if (aaux->fdec.size > 0)
+        {
+            print_queue(aaux->fdec.head);
+        }        
+        else
+        {
+            printf("Lista de decolagens vazia.\n");
+        }
         break;
     case 8:
+        printf("Listar Próximas Aterrissagens:\n");
+        if (aaux->fate.size > 0)
+        {
+            print_queue(aaux->fate.head);
+        }
+        else
+        {
+            printf("Lista de aterrissagens vazia.\n");
+        }
         break;
     case 9:
         break;
@@ -88,4 +119,14 @@ void excecute(Airport **airport, int choice)
         printf("Operação não listada.");
         break;
     }
+}
+
+void print_queue(Node *aux)
+{
+    while (aux->next != NULL)
+    {
+        printf("%s\n", aux->plane_id);
+        aux = aux->next;
+    }
+    printf("%s\n", aux->plane_id);
 }

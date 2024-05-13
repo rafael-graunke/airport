@@ -23,30 +23,48 @@ bool check_plane(Airport *airport, char plane_id[5])
     return contains(&list, plane_id);
 }
 
-void insert_plane(Airport *airport, char plane_id[5])
-{
-    int key = plane_id[0] - 'A';
-    List list = airport->ldisp[key];
-    insert(&list, plane_id);
-}
-
-void queue_liftoff(Airport *airport, char plane_id[5])
-{
-    // queue(&airport->fdec, plane_id);
-}
-
-void queue_landing(Airport *airport, char plane_id[5])
-{
-    // queue(&airport->fate, plane_id);
-}
-
-int register_plane(Airport *airport, char plane_id[5])
+bool insert_plane(Airport *airport, char plane_id[5])
 {
     int key = plane_id[0] - 'A';
     List *list = &(*airport).ldisp[key];
-    if(contains(list, plane_id)){
+    if (contains(list, plane_id))
+    {
         return 0;
     }
     insert(list, plane_id);
+    return 1;
+}
+
+bool queue_liftoff(Airport *airport, char plane_id[5])
+{
+    int key = plane_id[0] - 'A';
+    List *ldisp = &(*airport).ldisp[key];
+    if (!contains(ldisp, plane_id))
+    {
+        return 0;
+    }
+    List *list = &(*airport).fdec;
+    if (contains(list, plane_id))
+    {
+        return 1;
+    }
+    append(list, plane_id);
+    return 1;
+}
+
+bool queue_landing(Airport *airport, char plane_id[5])
+{
+    int key = plane_id[0] - 'A';
+    List *ldisp = &(*airport).ldisp[key];
+    if (!contains(ldisp, plane_id))
+    {
+        return 0;
+    }
+    List *list = &(*airport).fate;
+    if (contains(list, plane_id))
+    {
+        return 1;
+    }
+    append(list, plane_id);
     return 1;
 }
