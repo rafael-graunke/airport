@@ -2,7 +2,8 @@
 #include <string.h>
 #include "list.h"
 
-List create_list() {
+List create_list()
+{
     List list;
     list.head = NULL;
     list.tail = NULL;
@@ -11,28 +12,34 @@ List create_list() {
     return list;
 }
 
-bool contains(List *list, char plane_id[5]) {
+bool contains(List *list, char plane_id[5])
+{
     Node *curr = list->head;
-    if (curr == NULL) {
+    if (curr == NULL)
+    {
         return false;
     }
 
-    for (int i = 0; i < list->size; i++) {
-        if (strcmp(curr->plane_id, plane_id) == 0) {
+    for (int i = 0; i < list->size; i++)
+    {
+        if (strcmp(curr->plane_id, plane_id) == 0)
+        {
             return true;
         }
         curr = curr->next;
     }
 
-    if (strcmp(curr->plane_id, plane_id) == 0) {
+    if (strcmp(curr->plane_id, plane_id) == 0)
+    {
         return true;
     }
 
     return false;
 }
 
-Node *create_node(char plane_id[5]) {
-    Node *node = (Node *) malloc(sizeof(Node));
+Node *create_node(char plane_id[5])
+{
+    Node *node = (Node *)malloc(sizeof(Node));
     node->prev = NULL;
     node->next = NULL;
     strcpy(node->plane_id, plane_id);
@@ -40,10 +47,12 @@ Node *create_node(char plane_id[5]) {
     return node;
 }
 
-void append(List *list, char plane_id[5]) {
+void append(List *list, char plane_id[5])
+{
     Node *node = create_node(plane_id);
-    
-    if (list->head == NULL) {
+
+    if (list->head == NULL)
+    {
         list->head = node;
         list->tail = node;
         list->size++;
@@ -56,10 +65,12 @@ void append(List *list, char plane_id[5]) {
     list->size++;
 }
 
-void prepend(List *list, char plane_id[5]) {
+void prepend(List *list, char plane_id[5])
+{
     Node *node = create_node(plane_id);
 
-    if (list->head == NULL) {
+    if (list->head == NULL)
+    {
         list->head = node;
         list->tail = node;
         list->size++;
@@ -72,11 +83,13 @@ void prepend(List *list, char plane_id[5]) {
     list->size++;
 }
 
-char *dequeue(List *list) {
+char *dequeue(List *list)
+{
     char plane_id[5];
     strcpy(&plane_id, list->head->plane_id);
 
-    if(list->head == list->tail) {
+    if (list->head == list->tail)
+    {
         free(list->head);
         list->head = NULL;
         list->tail = NULL;
@@ -91,11 +104,13 @@ char *dequeue(List *list) {
     return plane_id;
 }
 
-char *pop(List *list) {
+char *pop(List *list)
+{
     char plane_id[5];
     strcpy(&plane_id, list->tail->plane_id);
 
-    if(list->head == list->tail) {
+    if (list->head == list->tail)
+    {
         free(list->head);
         list->head = NULL;
         list->tail = NULL;
@@ -109,8 +124,10 @@ char *pop(List *list) {
     return plane_id;
 }
 
-void insert(List *list, char plane_id[5]) { 
-    if (list->head == NULL) {
+void insert(List *list, char plane_id[5])
+{
+    if (list->head == NULL)
+    {
         Node *node = create_node(plane_id);
         list->head = node;
         list->tail = node;
@@ -118,20 +135,24 @@ void insert(List *list, char plane_id[5]) {
         return;
     }
 
-    if (strcmp(plane_id, list->head->plane_id) == -1) {
+    if (strcmp(plane_id, list->head->plane_id) == -1)
+    {
         prepend(list, plane_id);
         return;
     }
 
-    if (strcmp(plane_id, list->tail->plane_id) == 1) {
+    if (strcmp(plane_id, list->tail->plane_id) == 1)
+    {
         append(list, plane_id);
         return;
     }
 
     Node *node = create_node(plane_id);
     Node *aux = list->head->next;
-    for (int i = 0; i < list->size; i++) {
-        if (strcmp(plane_id, list->tail->plane_id) == 1) {
+    for (int i = 0; i < list->size; i++)
+    {
+        if (strcmp(plane_id, list->tail->plane_id) == 1)
+        {
             node->next = aux;
             node->prev = aux->prev;
             aux->prev = node;

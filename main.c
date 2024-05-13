@@ -3,6 +3,6 @@
 #include "airport.h"
 #include "list.h"
 
-void main() {
-    
+void main()
+{
 }
