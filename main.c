@@ -12,16 +12,17 @@ void main()
     {
         printf("---------------------------------------\n");
         printf("Airport Menu\n");
-        printf("1 - Cadastrar Avião\n");
-        printf("2 - Listar Aviões Cadastrados\n");
-        printf("3 - Autorizar Decolagem\n");
-        printf("4 - Realizar Decolagem\n");
-        printf("5 - Autorizar Aterrissagem\n");
-        printf("6 - Realizar Aterrissagem\n");
-        printf("7 - Listar Próximas Decolagens\n");
-        printf("8 - Listar Próximas Aterrissagens\n");
-        printf("9 - Relatório Aeroporto\n");
-        printf("0 - Sair\n");
+        printf("01 - Cadastrar Avião\n");
+        printf("02 - Listar Aviões Cadastrados\n");
+        printf("03 - Autorizar Decolagem\n");
+        printf("04 - Realizar Decolagem\n");
+        printf("05 - Autorizar Aterrissagem\n");
+        printf("06 - Realizar Aterrissagem\n");
+        printf("07 - Listar Próximas Decolagens\n");
+        printf("08 - Listar Próximas Aterrissagens\n");
+        printf("09 - Relatório Aeroporto\n");
+        printf("10 - Remover Avião\n");
+        printf("00 - Sair\n");
         printf("---------------------------------------\n");
         printf("Digite o número da operação:\n");
         scanf("%d", &choice);
@@ -132,6 +133,47 @@ void excecute(Airport **airport, int choice)
         }
         break;
     case 9:
+        printf("Relatório:\n");
+        if (aaux->hist.size > 0)
+        {
+            Hist_Node *aux = aaux->hist.head;
+            while (aux->next != NULL)
+            {
+                if (aux->hist_kind)
+                {
+                    printf("%s: decolagem.\n", aux->plane_id);
+                }
+                else
+                {
+                    printf("%s: aterrissagem.\n", aux->plane_id);
+                }
+                aux = aux->next;
+            }
+            if (aux->hist_kind)
+            {
+                printf("%s: decolagem.\n", aux->plane_id);
+            }
+            else
+            {
+                printf("%s: aterrissagem.\n", aux->plane_id);
+            }
+        }
+        else
+        {
+            printf("Lista de aterrissagens vazia.\n");
+        }
+        break;
+    case 10:
+        printf("Escreva o código do avião a ser removido:\n");
+        scanf("%s", &plane_id);
+        if (remove_plane(&(*airport), plane_id))
+        {
+            printf("Avião removido com sucesso: %s\n", plane_id);
+        }
+        else
+        {
+            printf("Avião não consta em nossa lista: %s\n", plane_id);
+        }
         break;
     case 0:
         printf("Finalizando aplicação.");
