@@ -7,7 +7,7 @@ typedef struct h_node
     struct h_node *prev;
     struct h_node *next;
     char plane_id[5];
-    int hist_kind; // 0 - aterrisar 1 - decolar
+    int hist_kind; //  0 - aterrisar 1 - decolar
 } Hist_Node;
 
 typedef struct h_list
