@@ -4,43 +4,27 @@
 #include "airport.h"
 #include "list.h"
 
-void main()
+
+void print_queue(Node *aux)
 {
-    int choice;
-    Airport airport = create_airport();
-    while (1)
+    while (aux->next != NULL)
     {
-        printf("---------------------------------------\n");
-        printf("Airport Menu\n");
-        printf("01 - Cadastrar Avião\n");
-        printf("02 - Listar Aviões Cadastrados\n");
-        printf("03 - Autorizar Decolagem\n");
-        printf("04 - Realizar Decolagem\n");
-        printf("05 - Autorizar Aterrissagem\n");
-        printf("06 - Realizar Aterrissagem\n");
-        printf("07 - Listar Próximas Decolagens\n");
-        printf("08 - Listar Próximas Aterrissagens\n");
-        printf("09 - Relatório Aeroporto\n");
-        printf("10 - Remover Avião\n");
-        printf("00 - Sair\n");
-        printf("---------------------------------------\n");
-        printf("Digite o número da operação:\n");
-        scanf("%d", &choice);
-        excecute(&airport, choice);
+        printf("%s\n", aux->plane_id);
+        aux = aux->next;
     }
+    printf("%s\n", aux->plane_id);
 }
 
-void excecute(Airport **airport, int choice)
+void excecute(Airport *airport, int choice)
 {
-    Airport *aaux = &(*airport);
     char plane_id[5];
     int i;
     switch (choice)
     {
     case 1:
         printf("Escreva o código do avião a ser inserido:\n");
-        scanf("%s", &plane_id);
-        if (insert_plane(&(*airport), plane_id))
+        scanf("%s", plane_id);
+        if (insert_plane(airport, plane_id))
         {
             printf("Avião registrado com sucesso: %s\n", plane_id);
         }
@@ -53,16 +37,16 @@ void excecute(Airport **airport, int choice)
         printf("Lista de aviões registrados:\n");
         for (i = 0; i < 26; i++)
         {
-            if (aaux->ldisp[i].size > 0)
+            if (airport->ldisp[i].size > 0)
             {
                 printf("%c:\n", i + 'A');
-                print_queue(aaux->ldisp[i].head);
+                print_queue(airport->ldisp[i].head);
             }
         }
         break;
     case 3:
         printf("Escreva o código do avião a ser autorizado a decolar:\n");
-        scanf("%s", &plane_id);
+        scanf("%s", plane_id);
         if (queue_liftoff(&(*airport), plane_id))
         {
             printf("Avião autorizado: %s\n", plane_id);
@@ -87,7 +71,7 @@ void excecute(Airport **airport, int choice)
         break;
     case 5:
         printf("Escreva o código do avião a ser autorizado a aterrisar:\n");
-        scanf("%s", &plane_id);
+        scanf("%s", plane_id);
         if (queue_landing(&(*airport), plane_id))
         {
             printf("Avião autorizado: %s\n", plane_id);
@@ -112,9 +96,9 @@ void excecute(Airport **airport, int choice)
         break;
     case 7:
         printf("Listar Próximas Decolagens:\n");
-        if (aaux->fdec.size > 0)
+        if (airport->fdec.size > 0)
         {
-            print_queue(aaux->fdec.head);
+            print_queue(airport->fdec.head);
         }
         else
         {
@@ -123,9 +107,9 @@ void excecute(Airport **airport, int choice)
         break;
     case 8:
         printf("Listar Próximas Aterrissagens:\n");
-        if (aaux->fate.size > 0)
+        if (airport->fate.size > 0)
         {
-            print_queue(aaux->fate.head);
+            print_queue(airport->fate.head);
         }
         else
         {
@@ -134,9 +118,9 @@ void excecute(Airport **airport, int choice)
         break;
     case 9:
         printf("Relatório:\n");
-        if (aaux->hist.size > 0)
+        if (airport->hist.size > 0)
         {
-            Hist_Node *aux = aaux->hist.head;
+            Record *aux = airport->hist.head;
             while (aux->next != NULL)
             {
                 if (aux->hist_kind)
@@ -165,7 +149,7 @@ void excecute(Airport **airport, int choice)
         break;
     case 10:
         printf("Escreva o código do avião a ser removido:\n");
-        scanf("%s", &plane_id);
+        scanf("%s", plane_id);
         if (remove_plane(&(*airport), plane_id))
         {
             printf("Avião removido com sucesso: %s\n", plane_id);
@@ -185,12 +169,28 @@ void excecute(Airport **airport, int choice)
     }
 }
 
-void print_queue(Node *aux)
+void main()
 {
-    while (aux->next != NULL)
+    int choice;
+    Airport airport = create_airport();
+    while (1)
     {
-        printf("%s\n", aux->plane_id);
-        aux = aux->next;
+        printf("---------------------------------------\n");
+        printf("Airport Menu\n");
+        printf("01 - Cadastrar Avião\n");
+        printf("02 - Listar Aviões Cadastrados\n");
+        printf("03 - Autorizar Decolagem\n");
+        printf("04 - Realizar Decolagem\n");
+        printf("05 - Autorizar Aterrissagem\n");
+        printf("06 - Realizar Aterrissagem\n");
+        printf("07 - Listar Próximas Decolagens\n");
+        printf("08 - Listar Próximas Aterrissagens\n");
+        printf("09 - Relatório Aeroporto\n");
+        printf("10 - Remover Avião\n");
+        printf("00 - Sair\n");
+        printf("---------------------------------------\n");
+        printf("Digite o número da operação:\n");
+        scanf("%d", &choice);
+        excecute(&airport, choice);
     }
-    printf("%s\n", aux->plane_id);
 }
