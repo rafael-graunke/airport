@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include "history.h"
 #include "list.h"
 
 #ifndef _AIRPORT_H
@@ -9,7 +10,7 @@ typedef struct s_airport
     List ldisp[26];
     List fdec;
     List fate;
-    Hist_List hist;
+    History hist;
 
 } Airport;
 
