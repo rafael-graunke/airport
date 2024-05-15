@@ -48,9 +48,7 @@ bool remove_plane(Airport *airport, char plane_id[5])
 
 bool queue_liftoff(Airport *airport, char plane_id[5])
 {
-    List *ldisp = &(airport->ldisp[get_key(plane_id)]);
-
-    if (!contains(ldisp, plane_id))
+    if (!check_plane(airport, plane_id))
         return false;
 
     if (contains(&(airport->fate), plane_id))
@@ -76,9 +74,7 @@ char *dequeue_liftoff(Airport *airport)
 
 bool queue_landing(Airport *airport, char plane_id[5])
 {
-    List *ldisp = &(airport->ldisp[get_key(plane_id)]);
-
-    if (!contains(ldisp, plane_id))
+    if (!check_plane(airport, plane_id))
         return false;
 
     if (contains(&(airport->fdec), plane_id))
