@@ -22,13 +22,16 @@ bool contains(List *list, char plane_id[5])
         return false;
     }
 
-    for (int i = 0; i < list->size; i++)
-    {
+    while(curr->next != NULL) {
         if (strncmp(curr->plane_id, plane_id, 5) == 0)
         {
             return true;
         }
         curr = curr->next;
+    }
+    if (strncmp(curr->plane_id, plane_id, 5) == 0)
+    {
+        return true;
     }
 
     return false;
