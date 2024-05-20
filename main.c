@@ -4,7 +4,6 @@
 #include "airport.h"
 #include "list.h"
 
-
 void print_queue(Node *aux)
 {
     while (aux->next != NULL)
@@ -45,9 +44,22 @@ void excecute(Airport *airport, int choice)
         }
         break;
     case 3:
+        printf("Lista de aviões registrados:\n");
+        char start_with;
+        scanf("\n%c", &start_with);
+        getchar();
+
+        start_with -= 'A';
+
+        if (airport->ldisp[start_with].size > 0)
+        {
+            print_queue(airport->ldisp[start_with].head);
+        }
+        break;
+    case 4:
         printf("Escreva o código do avião a ser autorizado a decolar:\n");
         scanf("%s", plane_id);
-        if (queue_liftoff(&(*airport), plane_id))
+        if (queue_liftoff(airport, plane_id))
         {
             printf("Avião autorizado: %s\n", plane_id);
         }
@@ -56,9 +68,9 @@ void excecute(Airport *airport, int choice)
             printf("Avião não consta em nossa lista: %s\n", plane_id);
         }
         break;
-    case 4:
+    case 5:
         printf("Decolagem:\n");
-        char *dec_plane_id = dequeue_liftoff(&(*airport));
+        char *dec_plane_id = dequeue_liftoff(airport);
         if (dec_plane_id != NULL)
         {
             printf("Avião decolado: %s\n", dec_plane_id);
@@ -69,10 +81,10 @@ void excecute(Airport *airport, int choice)
         }
         free(dec_plane_id);
         break;
-    case 5:
+    case 6:
         printf("Escreva o código do avião a ser autorizado a aterrisar:\n");
         scanf("%s", plane_id);
-        if (queue_landing(&(*airport), plane_id))
+        if (queue_landing(airport, plane_id))
         {
             printf("Avião autorizado: %s\n", plane_id);
         }
@@ -81,9 +93,9 @@ void excecute(Airport *airport, int choice)
             printf("Avião não consta em nossa lista: %s\n", plane_id);
         }
         break;
-    case 6:
+    case 7:
         printf("Aterrissagem:\n");
-        char *ate_plane_id = dequeue_landing(&(*airport));
+        char *ate_plane_id = dequeue_landing(airport);
         if (ate_plane_id != NULL)
         {
             printf("Avião aterrissado: %s\n", ate_plane_id);
@@ -94,7 +106,7 @@ void excecute(Airport *airport, int choice)
         }
         free(ate_plane_id);
         break;
-    case 7:
+    case 8:
         printf("Listar Próximas Decolagens:\n");
         if (airport->fdec.size > 0)
         {
@@ -105,7 +117,7 @@ void excecute(Airport *airport, int choice)
             printf("Lista de decolagens vazia.\n");
         }
         break;
-    case 8:
+    case 9:
         printf("Listar Próximas Aterrissagens:\n");
         if (airport->fate.size > 0)
         {
@@ -116,7 +128,7 @@ void excecute(Airport *airport, int choice)
             printf("Lista de aterrissagens vazia.\n");
         }
         break;
-    case 9:
+    case 10:
         printf("Relatório:\n");
         if (airport->hist.size > 0)
         {
@@ -147,10 +159,10 @@ void excecute(Airport *airport, int choice)
             printf("Lista de aterrissagens vazia.\n");
         }
         break;
-    case 10:
+    case 11:
         printf("Escreva o código do avião a ser removido:\n");
         scanf("%s", plane_id);
-        if (remove_plane(&(*airport), plane_id))
+        if (remove_plane(airport, plane_id))
         {
             printf("Avião removido com sucesso: %s\n", plane_id);
         }
@@ -160,11 +172,11 @@ void excecute(Airport *airport, int choice)
         }
         break;
     case 0:
-        printf("Finalizando aplicação.");
-        exit(1);
+        printf("Finalizando aplicação.\n");
+        exit(EXIT_SUCCESS);
         break;
     default:
-        printf("Operação não listada.");
+        printf("Operação não listada.\n");
         break;
     }
 }
@@ -173,20 +185,21 @@ void main()
 {
     int choice;
     Airport airport = create_airport();
-    while (1)
+    while (true)
     {
         printf("---------------------------------------\n");
         printf("Airport Menu\n");
         printf("01 - Cadastrar Avião\n");
         printf("02 - Listar Aviões Cadastrados\n");
-        printf("03 - Autorizar Decolagem\n");
-        printf("04 - Realizar Decolagem\n");
-        printf("05 - Autorizar Aterrissagem\n");
-        printf("06 - Realizar Aterrissagem\n");
-        printf("07 - Listar Próximas Decolagens\n");
-        printf("08 - Listar Próximas Aterrissagens\n");
-        printf("09 - Relatório Aeroporto\n");
-        printf("10 - Remover Avião\n");
+        printf("03 - Listar Aviões Cadastrados Por Letra\n");
+        printf("04 - Autorizar Decolagem\n");
+        printf("05 - Realizar Decolagem\n");
+        printf("06 - Autorizar Aterrissagem\n");
+        printf("07 - Realizar Aterrissagem\n");
+        printf("08 - Listar Próximas Decolagens\n");
+        printf("09 - Listar Próximas Aterrissagens\n");
+        printf("10 - Relatório Aeroporto\n");
+        printf("11 - Remover Avião\n");
         printf("00 - Sair\n");
         printf("---------------------------------------\n");
         printf("Digite o número da operação:\n");
