@@ -22,7 +22,8 @@ bool contains(List *list, char plane_id[5])
         return false;
     }
 
-    while(curr->next != NULL) {
+    while (curr->next != NULL)
+    {
         if (strncmp(curr->plane_id, plane_id, 5) == 0)
         {
             return true;
@@ -147,7 +148,7 @@ void insert(List *list, char plane_id[5])
 
     Node *node = create_node(plane_id);
     Node *aux = list->head->next;
-    for (int i = 0; i < list->size; i++)
+    while (aux->next != NULL)
     {
         if (strncmp(plane_id, aux->plane_id, 5) < 0)
         {
@@ -159,7 +160,13 @@ void insert(List *list, char plane_id[5])
         }
         aux = aux->next;
     }
-
+    if (strncmp(plane_id, aux->plane_id, 5) < 0)
+    {
+        node->next = aux;
+        node->prev = aux->prev;
+        aux->prev = node;
+        node->prev->next = node;
+    }
     list->size++;
 }
 
@@ -178,7 +185,7 @@ void delete(List *list, char plane_id[5])
     }
 
     Node *aux = list->head->next;
-    for (int i = 0; i < list->size; i++)
+    while (aux->next != NULL)
     {
         if (strncmp(plane_id, aux->plane_id, 5) == 0)
         {
@@ -189,5 +196,13 @@ void delete(List *list, char plane_id[5])
             return;
         }
         aux = aux->next;
+    }
+    if (strncmp(plane_id, aux->plane_id, 5) == 0)
+    {
+        aux->prev->next = aux->next;
+        aux->next->prev = aux->prev;
+        free(aux);
+        list->size--;
+        return;
     }
 }
