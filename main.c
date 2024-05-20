@@ -44,7 +44,7 @@ void excecute(Airport *airport, int choice)
         }
         break;
     case 3:
-        printf("Lista de aviões registrados:\n");
+        printf("Digite a letra:\n");
         char start_with;
         scanf("\n%c", &start_with);
         getchar();
@@ -53,6 +53,7 @@ void excecute(Airport *airport, int choice)
 
         if (airport->ldisp[start_with].size > 0)
         {
+            printf("Lista de aviões registrados:\n");
             print_queue(airport->ldisp[start_with].head);
         }
         break;
